@@ -1,14 +1,14 @@
 import { useState } from "react"
 
-import { Container } from "react-bootstrap"
+import { Container, Button } from "react-bootstrap"
 
 const objetoInicial = [
     {
-        tarea: "El1",
+        tarea: "Elemento 1",
         id: crypto.randomUUID()
     },
     {
-        tarea: "El2",
+        tarea: "Elemento 2",
         id: crypto.randomUUID()
     }
 ]
@@ -26,28 +26,42 @@ export const HomePage = () => {
     }
 
     return (
-        <Container>
+        <Container className="mt-4">
             <Container>
-                <input value={inputValue} onChange={(e) => setInputValue(e.target.value)} onKeyDown={(e) => {
-                    console.log(e);
-                    if (e.code === "Enter" && inputValue.trim() !== "") {
-                        const nuevaTarea =
-                        {
-                            tarea: inputValue,
-                            id: crypto.randomUUID()
-                        };               
-                    setLista([...lista, nuevaTarea]);
-                    setInputValue("");
-                };
-                }} />
+                <h1>Todo List</h1>
+                <input
+                    type="text"
+                    placeholder="Escribe una nueva tarea"
+                    value={inputValue} onChange={(e) => setInputValue(e.target.value)} onKeyDown={(e) => {
+                        console.log(e);
+                        if (e.code === "Enter" && inputValue.trim() !== "") {
+                            const nuevaTarea =
+                            {
+                                tarea: inputValue,
+                                id: crypto.randomUUID()
+                            };
+                            setLista([...lista, nuevaTarea]);
+                            setInputValue("");
+                        };
+                    }}
+                    style={{
+                        padding: '10px',
+                        fontSize: '16px',
+                        border: '2px solid #007bff',
+                        borderRadius: '5px',
+                        width: '100%',
+                    }}
+                />
             </Container>
             {lista.map((elemento) => {
                 return (
                     <Container>
-                        <div>{elemento.tarea}</div>
-                        <span onClick={() => {
-                            return borrarElements(elemento.id)
-                        }}>X</span>
+                        <Container className="p-2 bg-light border rounded">{elemento.tarea}<Button
+                            className="text-danger text-fold float-end" 
+                            variant="light"    
+                            size="sm"
+                            onClick={() => borrarElements(elemento.id)}
+                        ><strong>X</strong></Button></Container>
                     </Container>
                 )
             })}
