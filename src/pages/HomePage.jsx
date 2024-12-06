@@ -28,9 +28,8 @@ export const HomePage = () => {
     return (
         <Container className="mt-5">
             <Badge className="py-3 px-3 bg-secondary border rounded" style={{
-                        fontSize: '16px',
-                        width: '100%',
-                    }}>
+                width: '100%',
+            }}>
                 <h1 className="mb-3 bg-secondary text-black d-flex align-items-center justify-content-start">To Do List</h1>
                 <input
                     placeholder="Write a new task"
@@ -57,8 +56,8 @@ export const HomePage = () => {
                 return (
                     <Container className="d-flex align-items-center">
                         <Container className="text-black mt-1 py-2 bg-secondary border rounded">{element.task}<Button
-                            className="text-danger float-end" 
-                            variant="secondary"    
+                            className="text-danger float-end"
+                            variant="secondary"
                             size="sm"
                             onClick={() => removeElements(element.key)}
                         ><strong>X</strong></Button></Container>
