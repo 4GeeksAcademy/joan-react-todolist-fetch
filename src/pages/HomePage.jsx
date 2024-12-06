@@ -2,25 +2,25 @@ import { useState } from "react"
 
 import { Badge, Container, Button } from "react-bootstrap"
 
-const objetoInicial = [
+const initialObject = [
     {
-        tarea: "First task",
-        id: crypto.randomUUID()
+        task: "First task",
+        key: crypto.randomUUID()
     },
     {
-        tarea: "Second task",
-        id: crypto.randomUUID()
+        task: "Second task",
+        key: crypto.randomUUID()
     }
 ]
 
 export const HomePage = () => {
-    const [lista, setLista] = useState(objetoInicial)
+    const [list, setList] = useState(initialObject)
     const [inputValue, setInputValue] = useState("")
 
-    const borrarElements = (id) => {
-        setLista(
-            lista.filter((elemento) => {
-                return elemento.id !== id
+    const removeElements = (key) => {
+        setList(
+            list.filter((element) => {
+                return element.key !== key
             })
         )
     }
@@ -32,19 +32,17 @@ export const HomePage = () => {
                         borderRadius: '5px',
                         width: '100%',
                     }}>
-                <h1 className="bg-secondary d-flex align-items-center justify-content-start">To Do List</h1>
+                <h1 className="bg-secondary text-black d-flex align-items-center justify-content-start">To Do List</h1>
                 <input
-                    type="text"
                     placeholder="Write a new task"
                     value={inputValue} onChange={(e) => setInputValue(e.target.value)} onKeyDown={(e) => {
-                        console.log(e);
                         if (e.code === "Enter" && inputValue.trim() !== "") {
-                            const nuevaTarea =
+                            const newTask =
                             {
-                                tarea: inputValue,
-                                id: crypto.randomUUID()
+                                task: inputValue,
+                                key: crypto.randomUUID()
                             };
-                            setLista([...lista, nuevaTarea]);
+                            setList([...list, newTask]);
                             setInputValue("");
                         };
                     }}
@@ -56,14 +54,14 @@ export const HomePage = () => {
                     }}
                 />
             </Badge>
-            {lista.map((elemento) => {
+            {list.map((element) => {
                 return (
-                    <Container className="d-flex align-items-center">
-                        <Container className="mt-1 py-2 text-light bg-secondary border rounded">{elemento.tarea}<Button
-                            className="text-danger text-fold float-end" 
+                    <Container className="d-flex text-fold align-items-center">
+                        <Container className="text-black mt-1 py-2 bg-secondary border rounded">{element.task}<Button
+                            className="text-danger float-end" 
                             variant="secondary"    
                             size="sm"
-                            onClick={() => borrarElements(elemento.id)}
+                            onClick={() => removeElements(element.key)}
                         ><strong>X</strong></Button></Container>
                     </Container>
                 )
