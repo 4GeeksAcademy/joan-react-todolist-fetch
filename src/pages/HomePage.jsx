@@ -27,12 +27,11 @@ export const HomePage = () => {
 
     return (
         <Container className="mt-5">
-            <Badge className="py-3 px-3 bg-secondary" style={{
+            <Badge className="py-3 px-3 bg-secondary border rounded" style={{
                         fontSize: '16px',
-                        borderRadius: '5px',
                         width: '100%',
                     }}>
-                <h1 className="bg-secondary text-black d-flex align-items-center justify-content-start">To Do List</h1>
+                <h1 className="mb-3 bg-secondary text-black d-flex align-items-center justify-content-start">To Do List</h1>
                 <input
                     placeholder="Write a new task"
                     value={inputValue} onChange={(e) => setInputValue(e.target.value)} onKeyDown={(e) => {
@@ -56,7 +55,7 @@ export const HomePage = () => {
             </Badge>
             {list.map((element) => {
                 return (
-                    <Container className="d-flex text-fold align-items-center">
+                    <Container className="d-flex align-items-center">
                         <Container className="text-black mt-1 py-2 bg-secondary border rounded">{element.task}<Button
                             className="text-danger float-end" 
                             variant="secondary"    
