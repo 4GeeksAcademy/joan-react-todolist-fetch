@@ -1,14 +1,14 @@
 import { useState } from "react"
 
-import { Container, Button } from "react-bootstrap"
+import { Badge, Container, Button } from "react-bootstrap"
 
 const objetoInicial = [
     {
-        tarea: "Elemento 1",
+        tarea: "First task",
         id: crypto.randomUUID()
     },
     {
-        tarea: "Elemento 2",
+        tarea: "Second task",
         id: crypto.randomUUID()
     }
 ]
@@ -26,12 +26,16 @@ export const HomePage = () => {
     }
 
     return (
-        <Container className="mt-4">
-            <Container>
-                <h1>Todo List</h1>
+        <Container className="mt-5">
+            <Badge className="py-3 px-3 bg-secondary" style={{
+                        fontSize: '16px',
+                        borderRadius: '5px',
+                        width: '100%',
+                    }}>
+                <h1 className="bg-secondary d-flex align-items-center justify-content-start">To Do List</h1>
                 <input
                     type="text"
-                    placeholder="Escribe una nueva tarea"
+                    placeholder="Write a new task"
                     value={inputValue} onChange={(e) => setInputValue(e.target.value)} onKeyDown={(e) => {
                         console.log(e);
                         if (e.code === "Enter" && inputValue.trim() !== "") {
@@ -47,18 +51,17 @@ export const HomePage = () => {
                     style={{
                         padding: '10px',
                         fontSize: '16px',
-                        border: '2px solid #007bff',
                         borderRadius: '5px',
                         width: '100%',
                     }}
                 />
-            </Container>
+            </Badge>
             {lista.map((elemento) => {
                 return (
-                    <Container>
-                        <Container className="p-2 bg-light border rounded">{elemento.tarea}<Button
+                    <Container className="d-flex align-items-center">
+                        <Container className="mt-1 py-2 text-light bg-secondary border rounded">{elemento.tarea}<Button
                             className="text-danger text-fold float-end" 
-                            variant="light"    
+                            variant="secondary"    
                             size="sm"
                             onClick={() => borrarElements(elemento.id)}
                         ><strong>X</strong></Button></Container>
