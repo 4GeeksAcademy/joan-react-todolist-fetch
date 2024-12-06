@@ -32,6 +32,7 @@ export const HomePage = () => {
             }}>
                 <h1 className="mb-3 bg-secondary text-black d-flex align-items-center justify-content-start">To Do List</h1>
                 <input
+                    type="text"
                     placeholder="Write a new task"
                     value={inputValue} onChange={(e) => setInputValue(e.target.value)} onKeyDown={(e) => {
                         if (e.code === "Enter" && inputValue.trim() !== "") {
