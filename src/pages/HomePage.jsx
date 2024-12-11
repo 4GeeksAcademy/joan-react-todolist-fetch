@@ -1,28 +1,45 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 import { Badge, Container, Button } from "react-bootstrap"
 
-const initialObject = [
-    {
-        task: "First task",
-        key: crypto.randomUUID()
-    },
-    {
-        task: "Second task",
-        key: crypto.randomUUID()
-    }
-]
-
 export const HomePage = () => {
-    const [list, setList] = useState(initialObject)
     const [inputValue, setInputValue] = useState("")
+    const [todos, setTodos] = useState([]);
 
-    const removeElements = (key) => {
-        setList(
-            list.filter((element) => {
-                return element.key !== key
-            })
-        )
+    const getTodosList = () => {
+        fetch("https://playground.4geeks.com/todo/users/Joan", {
+            method: "GET",
+        }).then((res) => {
+            return res.json()
+        }).then((response) => {
+            setTodos(response.todos)
+        })
+    }
+
+    useEffect(() => {
+        getTodosList()
+    }, [])
+
+    const addNewTask =(text) => {
+        const task = {
+            label: text,
+            is_done: false
+        }
+        fetch('https://playground.4geeks.com/todo/todos/Joan', {
+            method: "POST",
+            body: JSON.stringify(task),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(getTodosList())
+    }
+
+    const removeElements = (id) => {
+        fetch(`https://playground.4geeks.com/todo/todos/${id}`, {
+            method: "DELETE",
+        })
+            .then(() => getTodosList())
     }
 
     return (
@@ -36,12 +53,7 @@ export const HomePage = () => {
                     placeholder="Write a new task"
                     value={inputValue} onChange={(e) => setInputValue(e.target.value)} onKeyDown={(e) => {
                         if (e.code === "Enter" && inputValue.trim() !== "") {
-                            const newTask =
-                            {
-                                task: inputValue,
-                                key: crypto.randomUUID()
-                            };
-                            setList([...list, newTask]);
+                            addNewTask(inputValue);
                             setInputValue("");
                         };
                     }}
@@ -53,14 +65,14 @@ export const HomePage = () => {
                     }}
                 />
             </Badge>
-            {list.map((element) => {
+            {todos.map((element) => {
                 return (
                     <Container className="d-flex align-items-center">
-                        <Container className="text-black mt-1 py-2 bg-secondary border rounded">{element.task}<Button
+                        <Container className="text-black mt-1 py-2 bg-secondary border rounded">{element.label}<Button
                             className="text-danger float-end"
                             variant="secondary"
                             size="sm"
-                            onClick={() => removeElements(element.key)}
+                            onClick={() => removeElements(element.id)}
                         ><strong>X</strong></Button></Container>
                     </Container>
                 )
