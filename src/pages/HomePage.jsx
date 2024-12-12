@@ -44,10 +44,10 @@ export const HomePage = () => {
 
     return (
         <Container className="mt-5">
-            <Badge className="py-3 px-3 bg-primary border rounded" style={{
+            <Badge className="py-3 px-3 bg-success border rounded" style={{
                 width: '100%',
             }}>
-                <h1 className="mb-3 bg-primary text-black d-flex align-items-center justify-content-start">To Do List</h1>
+                <h1 className="mb-3 bg-success text-light d-flex align-items-center justify-content-start">To Do List</h1>
                 <input
                     type="text"
                     placeholder="Write a new task"
@@ -68,9 +68,9 @@ export const HomePage = () => {
             {todos.map((element) => {
                 return (
                     <Container className="d-flex align-items-center">
-                        <Container className="text-black mt-1 py-2 bg-primary border rounded">{element.label}<Button
-                            className="text-danger float-end"
-                            variant="primary"
+                        <Container className="text-light mt-1 py-2 bg-success border rounded">{element.label}<Button
+                            className="text-success float-end"
+                            variant="light"
                             size="sm"
                             onClick={() => removeElements(element.id)}
                         ><strong>X</strong></Button></Container>
